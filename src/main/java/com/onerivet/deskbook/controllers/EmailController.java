@@ -22,10 +22,10 @@ public class EmailController {
 
 	@Autowired private EmailService emailService;
 	
-	@PostMapping("/email")
-	public GenericResponse<String> sendMailRequest(@RequestBody EmailDto emaiDto) {
-		GenericResponse<String> genericResponse = new GenericResponse<>(emailService.sendMailRequest(emaiDto), null);
-		return genericResponse;
-	}
+//	@PostMapping("/email")
+//	public GenericResponse<String> sendMailRequest(@RequestBody EmailDto emaiDto) {
+//		GenericResponse<String> genericResponse = new GenericResponse<>(emailService.sendMailRequest(emaiDto), null);
+//		return genericResponse;
+//	}
 
 }

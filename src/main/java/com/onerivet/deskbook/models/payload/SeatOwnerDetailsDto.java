@@ -20,6 +20,8 @@ public class SeatOwnerDetailsDto {
 	//A person who get seat by approving owner
 	private int countOfRequest;
 	
+	//private int requestStatus;
+	
 	private TemporarySeatOwnerDto temporarySeatOwner;
 	
 }

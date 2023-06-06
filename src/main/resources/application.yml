@@ -2,17 +2,6 @@ spring:
   profiles:
     active: local
  
-mail:
-   host: smtp.gmail.com
-   port: 587
-   username: abhishekpandey81299@gmail.com
-   password: 'uokelcttezoubmde'
-   properties:
-   mail:
-    smtp:
-     auth: true
-     starttls:
-      enable: true  
 
 
 image:

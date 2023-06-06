@@ -25,6 +25,10 @@ public class EmailServiceImpl implements EmailService {
 		mail.setSubject(emaiDto.getSubject());
 		mail.setText(emaiDto.getBody());
 		
+//		mail.setTo("abhishekpandey81299@gmail.com");
+//		mail.setSubject("seat");
+//		mail.setText("seat request");
+		
 		javaMailSender.send(mail);
 		
 		return "Email Sent successfully to:";

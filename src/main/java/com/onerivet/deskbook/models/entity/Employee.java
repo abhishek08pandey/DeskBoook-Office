@@ -24,6 +24,10 @@ import lombok.ToString;
 @Entity
 @Table(name = "[Employee]", schema = "[dbo]")
 public class Employee {
+	public Employee(String id) {
+		this.id=id;
+	}
+
 	@Id
 	@Column(name = "EmployeeId")
 	private String id;

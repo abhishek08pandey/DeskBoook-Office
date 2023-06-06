@@ -22,16 +22,11 @@ public class CityController {
 
 	@Autowired
 	private CityService cityService;
-	
-	
 
 	public CityController(CityService cityService) {
 		super();
 		this.cityService = cityService;
 	}
-
-
-
 	/**
 	 * @purpose: Get all cities
 	 * @return: List of cityDto
