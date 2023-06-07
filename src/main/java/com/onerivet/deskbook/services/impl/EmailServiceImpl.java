@@ -21,13 +21,10 @@ public class EmailServiceImpl implements EmailService {
 	
 		SimpleMailMessage mail = new SimpleMailMessage();
 		
+		mail.setFrom("DeskBook.1Rivet@outlook.com");
 		mail.setTo(emaiDto.getTo());
 		mail.setSubject(emaiDto.getSubject());
 		mail.setText(emaiDto.getBody());
-		
-//		mail.setTo("abhishekpandey81299@gmail.com");
-//		mail.setSubject("seat");
-//		mail.setText("seat request");
 		
 		javaMailSender.send(mail);
 		
