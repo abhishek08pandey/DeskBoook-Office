@@ -118,7 +118,7 @@ public class SeatRequestServiceImpl implements SeatRequestService {
 
 		if (employee.getModeOfWork().getId() == 2) {// WFH
 
-			if (numberOfRequestOnSeat == 3) {
+			if (numberOfRequestOnSeat == 3) {// not use
 				return "This seat is already requested by Three employee, please choose a different available seat for your booking!";
 			}
 			else if (countPerDayEmployeeRequest == 3) {
@@ -169,6 +169,8 @@ public class SeatRequestServiceImpl implements SeatRequestService {
 
 	}
 
+	
+	
 	@Override
 	public String takeAction(String employeeId, TakeActionDto takeAction) {
 
@@ -182,6 +184,8 @@ public class SeatRequestServiceImpl implements SeatRequestService {
 			requestedEmployee.setModifiedBy(new Employee(employeeId));
 			requestedEmployee.setModifiedDate(LocalDateTime.now());
 
+			// Call Email service for Approved seat
+			
 			seatRequestRepo.save(requestedEmployee);
 			
 // request sent on different seat by approval employee which will rejected automatic
@@ -197,6 +201,8 @@ public class SeatRequestServiceImpl implements SeatRequestService {
 					rejectSeatList.get(i).setModifiedBy(new Employee(employeeId));
 					rejectSeatList.get(i).setModifiedDate(LocalDateTime.now());
 
+					// Call Email service for rejected seat
+					
 					seatRequestRepo.save(rejectSeatList.get(i));
 				}
 			}
@@ -213,6 +219,8 @@ public class SeatRequestServiceImpl implements SeatRequestService {
 					otherEmployeeRequest.get(i).setModifiedBy(new Employee(employeeId));
 					otherEmployeeRequest.get(i).setModifiedDate(LocalDateTime.now());
 
+					// Call Email service for rejected seat
+					
 					seatRequestRepo.save(otherEmployeeRequest.get(i));
 				}
 			}
@@ -227,6 +235,7 @@ public class SeatRequestServiceImpl implements SeatRequestService {
 			requestedEmployee.setModifiedBy(new Employee(employeeId));
 			requestedEmployee.setModifiedDate(LocalDateTime.now());
 
+			// Call Email service for rejected seat
 			seatRequestRepo.save(requestedEmployee);
 			
 			return "Seat Reject";

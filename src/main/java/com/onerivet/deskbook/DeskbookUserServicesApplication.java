@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
@@ -16,6 +17,7 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 @SpringBootApplication 
 @SecurityScheme(name = "bearerAuth",  scheme = "bearer", type = SecuritySchemeType.HTTP, bearerFormat = "JWT", in = SecuritySchemeIn.HEADER)
 @OpenAPIDefinition(info = @Info(title = "Deskbook", version = "1.0", description = "Deskbook Application"))
+@EnableScheduling
 public class DeskbookUserServicesApplication {
 
 	public static void main(String[] args) {

@@ -17,11 +17,12 @@ import lombok.ToString;
 @Builder
 public class TakeActionDto {
 	  
-	private String employeeId;// requested employee
+		private String employeeId;// requested employee
        
 	    private  LocalDate bookingDate;
 	        
 	    private int seatId;
+	    
 	        
 	    private int requestStatus;//Approve = 2, reject = 3
 	       
