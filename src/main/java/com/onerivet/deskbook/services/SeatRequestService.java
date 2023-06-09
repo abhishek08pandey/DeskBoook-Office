@@ -1,12 +1,13 @@
 package com.onerivet.deskbook.services;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.onerivet.deskbook.models.payload.AcceptRejectDto;
 import com.onerivet.deskbook.models.payload.SeatOwnerDetailsDto;
 import com.onerivet.deskbook.models.payload.SeatRequestDto;
-import com.onerivet.deskbook.models.payload.TakeActionDto;
 
 public interface SeatRequestService {
 
@@ -16,5 +17,5 @@ public interface SeatRequestService {
 
 	public Boolean seatApproveStatus(String employeeId, LocalDate seatRequestDto);
 	
-	  public String takeAction(String employeeId, @RequestBody TakeActionDto takeAction);
+	  public String acceptReject(String employeeId, @RequestBody AcceptRejectDto takeAction) throws IOException;
 	}

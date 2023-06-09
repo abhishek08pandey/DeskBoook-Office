@@ -17,6 +17,8 @@ public class EmailDto {
 
 	private String to;
 	private String subject;
+	//private Body body;
+	
 	private String body;
 	
 }

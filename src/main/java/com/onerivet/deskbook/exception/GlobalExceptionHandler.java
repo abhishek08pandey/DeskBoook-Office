@@ -64,12 +64,12 @@ public class GlobalExceptionHandler extends RuntimeException {
 		return new ResponseEntity<>(genericResponse, HttpStatus.BAD_REQUEST);
 	}
 	
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<GenericResponse<?>> exceptionHandler(Exception exception) {
-		
-		GenericResponse<?> genericResponse = new GenericResponse<>(null, exception.getMessage());
-		
-		return new ResponseEntity<>(genericResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-	}
+//	@ExceptionHandler(Exception.class)
+//	public ResponseEntity<GenericResponse<?>> exceptionHandler(Exception exception) {
+//		
+//		GenericResponse<?> genericResponse = new GenericResponse<>(null, exception.getMessage());
+//		
+//		return new ResponseEntity<>(genericResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+//	}
 	
 }

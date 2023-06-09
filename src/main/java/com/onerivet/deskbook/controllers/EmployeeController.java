@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -54,8 +56,12 @@ public class EmployeeController {
 	 * @param: id
 	 * @return: ProfileViewDto
 	 */
+	@Autowired private JavaMailSender javaMailSender;
 	@GetMapping("/")
 	public GenericResponse<ProfileViewDto> getById(Principal principal) throws Exception {
+		
+		
+			
 		GenericResponse<ProfileViewDto> genericResponse = new GenericResponse<>(this.employeeService.getEmployeeById(principal.getName()), null);
 		return genericResponse;
 	}
@@ -72,4 +78,19 @@ public class EmployeeController {
 		return new ResponseEntity<GenericResponse<ProfileViewDto>>(genericResponse, HttpStatus.OK);
 	}
 
+	@GetMapping("/email")
+	public String email() {
+		
+		SimpleMailMessage mail = new SimpleMailMessage();
+		
+		mail.setFrom("DeskBook.1Rivet@outlook.com");
+		
+		mail.setTo("abhishekpandey81299@gmail.com");
+		mail.setSubject("Book Seat");
+		mail.setText("Try");
+		System.out.println("reach");
+		javaMailSender.send(mail);
+		System.out.println("reach");
+		return "sent";
+	}
 }

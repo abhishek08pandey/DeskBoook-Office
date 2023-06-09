@@ -1,8 +1,17 @@
 spring:
   profiles:
     active: local
- 
-
+  mail: 
+   host: smtp-mail.outlook.com
+   port: 587
+   username: DeskBook.1Rivet@outlook.com
+   password: Admin@12345
+   properties:
+    mail:
+    smtp:
+     auth: true
+     starttls:
+      enable: true  
 
 image:
   upload:

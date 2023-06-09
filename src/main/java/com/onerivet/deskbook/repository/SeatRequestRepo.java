@@ -5,13 +5,12 @@ import java.util.List;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import com.onerivet.deskbook.models.entity.SeatNumber;
 import com.onerivet.deskbook.models.entity.SeatRequest;
 
 public interface SeatRequestRepo extends JpaRepository<SeatRequest, Integer> {
-
+//2
 // Check total 3 request 
 	public SeatRequest findByRequestStatusAndEmployeeIdAndSeatIdAndBookingDateAndDeletedDateNull(int pending, String employee, SeatNumber seatId, LocalDate bookingDate);
 
@@ -19,7 +18,7 @@ public interface SeatRequestRepo extends JpaRepository<SeatRequest, Integer> {
 	public int countFindByRequestStatusAndSeatIdAndBookingDateAndDeletedDateNull(int pending, SeatNumber seatId, LocalDate bookingDate);
 	
 	public SeatRequest findByRequestStatusAndBookingDateAndSeatIdAndDeletedDateNull(int requestStatus, LocalDate bookingDate,  SeatNumber seatId);
-	
+//2	
 	public List<SeatRequest> getByRequestStatusAndBookingDateAndSeatIdAndDeletedDateNull(int requestStatus, LocalDate bookingDate,  SeatNumber seatId);
 
 	
@@ -35,7 +34,7 @@ public interface SeatRequestRepo extends JpaRepository<SeatRequest, Integer> {
 		// Update Approve
 		public SeatRequest findByRequestStatusAndEmployeeIdAndBookingDateAndDeletedDateNull(int i,
 				String employeeId, LocalDate bookingDate);
-		
+//2		
 		// Baki ni reject
 		public List<SeatRequest> findByEmployeeIdAndRequestStatusAndBookingDateAndDeletedDateNull(String employee,int requestStatus, LocalDate bookingDate);
 // Auto approve

@@ -1,5 +1,6 @@
 package com.onerivet.deskbook.controllers;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDate;
 
@@ -13,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.onerivet.deskbook.models.payload.AcceptRejectDto;
 import com.onerivet.deskbook.models.payload.SeatOwnerDetailsDto;
 import com.onerivet.deskbook.models.payload.SeatRequestDto;
-import com.onerivet.deskbook.models.payload.TakeActionDto;
 import com.onerivet.deskbook.models.response.GenericResponse;
 import com.onerivet.deskbook.services.SeatRequestService;
 
@@ -50,8 +51,8 @@ public class SeatRequestController {
 
 	 // Approve 2 and Reject 3
     @PutMapping("/accepted-reject")
-    public GenericResponse<String> getAllAcceptedRequest(Principal principal,@RequestBody TakeActionDto takeAction){
-        GenericResponse<String> genericResponse = new GenericResponse<String>(this.seatRequestService.takeAction(principal.getName(),takeAction), null);
+    public GenericResponse<String> acceptReject(Principal principal,@RequestBody AcceptRejectDto takeAction) throws IOException{
+        GenericResponse<String> genericResponse = new GenericResponse<String>(this.seatRequestService.acceptReject(principal.getName(),takeAction), null);
         return genericResponse;
     }
 }

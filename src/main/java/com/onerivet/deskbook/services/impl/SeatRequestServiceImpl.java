@@ -1,5 +1,6 @@
 package com.onerivet.deskbook.services.impl;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,16 +12,17 @@ import com.onerivet.deskbook.models.entity.Employee;
 import com.onerivet.deskbook.models.entity.SeatConfiguration;
 import com.onerivet.deskbook.models.entity.SeatNumber;
 import com.onerivet.deskbook.models.entity.SeatRequest;
+import com.onerivet.deskbook.models.payload.AcceptRejectDto;
 import com.onerivet.deskbook.models.payload.SeatOwnerDetailsDto;
 import com.onerivet.deskbook.models.payload.SeatRequestDto;
-import com.onerivet.deskbook.models.payload.TakeActionDto;
 import com.onerivet.deskbook.models.payload.TemporarySeatOwnerDto;
 import com.onerivet.deskbook.repository.EmployeeRepo;
+import com.onerivet.deskbook.repository.FloorRepo;
 import com.onerivet.deskbook.repository.SeatConfigurationRepo;
 import com.onerivet.deskbook.repository.SeatNumberRepo;
 import com.onerivet.deskbook.repository.SeatRequestRepo;
+import com.onerivet.deskbook.services.EmailService;
 import com.onerivet.deskbook.services.SeatRequestService;
-import com.onerivet.deskbook.util.EmailUtil;
 
 import jakarta.transaction.Transactional;
 
@@ -38,9 +40,11 @@ public class SeatRequestServiceImpl implements SeatRequestService {
 	private SeatRequestRepo seatRequestRepo;
 	@Autowired
 	private SeatNumberRepo seatNumberRepo;
+	
+	@Autowired private FloorRepo floorRepo;
 
 	@Autowired
-	private EmailUtil emailUtil;
+	private EmailService emailService;
 
 	@Override
 	public SeatOwnerDetailsDto seatDetails(int id, LocalDate bookingDate) {
@@ -139,13 +143,14 @@ public class SeatRequestServiceImpl implements SeatRequestService {
 
 			seatRequest = seatRequestRepo.save(seatRequest);
 
-			emailUtil.sendEmailDetails(seatRequest);// send email on owner
+			// send email on owner admin and employee condition check
+			
 
 			return "Your seat request has been submitted!";
 		}
 		return "Hybrid Employee Can not book Seat";
 	}
-
+// this method check at up side 
 	@Override
 	public Boolean seatApproveStatus(String employeeId, LocalDate bookingDate) {
 
@@ -172,7 +177,7 @@ public class SeatRequestServiceImpl implements SeatRequestService {
 	
 	
 	@Override
-	public String takeAction(String employeeId, TakeActionDto takeAction) {
+	public String acceptReject(String employeeId, AcceptRejectDto takeAction) throws IOException {
 
 		if (takeAction.getRequestStatus() == 2) {// Approve = 2
 			
@@ -181,14 +186,40 @@ public class SeatRequestServiceImpl implements SeatRequestService {
 					takeAction.getEmployeeId(), new SeatNumber(takeAction.getSeatId()), takeAction.getBookingDate());
 
 			requestedEmployee.setRequestStatus(2);
+			
 			requestedEmployee.setModifiedBy(new Employee(employeeId));
 			requestedEmployee.setModifiedDate(LocalDateTime.now());
 
-			// Call Email service for Approved seat
-			
 			seatRequestRepo.save(requestedEmployee);
 			
-// request sent on different seat by approval employee which will rejected automatic
+			// Call Email service for Approved seat
+			//String city = floorRepo.findByFloorName(new Floor(takeAction.getFloor()));
+//			
+//			Body body = new Body();
+//			
+//			body.setEmployeeName(requestedEmployee.getEmployee().getFirstName());
+//			body.setBookingDate(takeAction.getBookingDate());
+//			//body.setCity(city);
+//			//body.setFloorName(takeAction.getFloor());
+//			body.setSeatNumber(takeAction.getSeatId());
+//			body.setDuration("Full Day");
+//			
+//			String fileName = "/static/seatacceptedofemployee.jsp";
+//			EmailDto emailDto = new EmailDto();
+//			
+//			System.out.println("1st");
+//			emailDto.setTo("abhishekpandey81299@gmail.com");//takeAction.getEmailId());
+//			emailDto.setSubject("Approval of Your Office Seat in the Deskbook Application System");
+//			emailDto.setBody("Dear [Employee's Name], We are pleased to inform you that your office seat request in the Deskbook Application System has been approved. Congratulations! Here are the details regarding your approved seat:  ");
+//			
+//			ModelMap map = new ModelMap();
+//			map.addAttribute("body",body);
+//			
+//			System.out.println("2st");
+//			emailService.sendMailRequest(emailDto, fileName);
+			
+			
+// temp seat owner request sent on different seat which will rejected automatic
 			List<SeatRequest> rejectSeatList = seatRequestRepo
 					.findByEmployeeIdAndRequestStatusAndBookingDateAndDeletedDateNull(takeAction.getEmployeeId(), 1 ,
 							takeAction.getBookingDate());

@@ -15,15 +15,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Builder
-public class TakeActionDto {
-	  
-		private String employeeId;// requested employee
-       
-	    private  LocalDate bookingDate;
-	        
-	    private int seatId;
-	    
-	        
-	    private int requestStatus;//Approve = 2, reject = 3
-	       
-	}
+public class Body {
+
+	private String employeeName;
+	private LocalDate bookingDate;
+	private String city;
+	private String floorName;
+	private int seatNumber;
+	private String duration;
+}

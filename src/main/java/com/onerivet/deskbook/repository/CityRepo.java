@@ -6,4 +6,5 @@ import com.onerivet.deskbook.models.entity.City;
 
 public interface CityRepo extends JpaRepository<City, Integer> {
 
+	
 }
